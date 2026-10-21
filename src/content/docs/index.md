@@ -12,7 +12,7 @@ The DeltaXY Handbook is one public place to read and link to DeltaXY's guidance.
 | [Engineering introduction](engineering/) | Purpose, terms, where each kind of fact belongs, and how rules take precedence | Draft |
 | [Documentation and specification standard](engineering/standards/documentation/) | Foundation records for every project, one authoritative home per fact, and evidence-based change review | Draft — deferred for detailed review |
 
-More standards are published here as they clear publication review.
+More standards are published here as they clear publication review. (Release drill: this sentence will be reverted.)
 
 ## Published does not mean approved
 
