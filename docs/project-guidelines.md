@@ -20,7 +20,7 @@ This is the initial delivery scope, not the complete collaboration vision in [pr
 | Build | Static production output; Node.js 24 (`.node-version`) and pnpm 11.6.0 (`devEngines` in `package.json`); `pnpm-lock.yaml` committed |
 | Hosting | GitHub Pages, deployed through GitHub Actions |
 
-The source handbook README lists Next.js as a confirmed engineering direction. Astro + Starlight was accepted as a documentation-specific exception (roadmap PRE.01), not a change to the standards for other products. Do not maintain a second implementation.
+The source handbook README lists Next.js as a confirmed engineering direction. Astro + Starlight was accepted as a documentation-specific exception, not a change to the standards for other products. Do not maintain a second implementation.
 
 ### Commands
 
