@@ -50,3 +50,5 @@ DeltaXY technical leadership requested a common handbook, product/architecture/r
 ## Approval requested
 
 Approve one authoritative home per fact, the four foundation records, and evidence-based change review. Confirm which role approves product scope in each project. Document generation and automatic structural validation do not replace that approval.
+
+See the [missing page](../missing-standard/) and [bad anchor](#no-such-section).
