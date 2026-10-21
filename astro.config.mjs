@@ -17,6 +17,8 @@ export default defineConfig({
 			title: 'DeltaXY Handbook',
 			description:
 				'The public DeltaXY Handbook: engineering standards for people and coding agents.',
+			// Keep the site out of search engines; it is shared by direct link.
+			head: [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex, nofollow' } }],
 			customCss: [
 				'@fontsource-variable/geist/wght.css',
 				'@fontsource-variable/geist-mono/wght.css',
@@ -54,10 +56,10 @@ export default defineConfig({
 			},
 			sidebar: [
 				{ label: 'Introduction', slug: 'engineering' },
-				{
-					label: 'Standards',
-					items: [{ label: 'Documentation', slug: 'engineering/standards/documentation' }],
-				},
+				{ label: 'Approval status', slug: 'engineering/approval' },
+				{ label: 'Standards', items: [{ autogenerate: { directory: 'engineering/standards' } }] },
+				{ label: 'Patterns', items: [{ autogenerate: { directory: 'engineering/patterns' } }] },
+				{ label: 'Templates', items: [{ autogenerate: { directory: 'engineering/templates' } }] },
 			],
 		}),
 	],

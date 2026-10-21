@@ -41,7 +41,8 @@ try {
 			});
 			const page = await context.newPage();
 			for (const pagePath of pages) {
-				await page.goto(`http://127.0.0.1:${PORT}${pagePath}`, { waitUntil: 'load' });
+				// networkidle: Expressive Code makes overflowing code blocks focusable from a script.
+				await page.goto(`http://127.0.0.1:${PORT}${pagePath}`, { waitUntil: 'networkidle' });
 				const actualTheme = await page.evaluate(() => document.documentElement.dataset.theme);
 				if (actualTheme !== theme) throw new Error(`${pagePath}: expected ${theme} theme, got ${actualTheme}`);
 
