@@ -6,6 +6,8 @@ Deliver the public, read-first handbook described in [product.md](product.md), b
 
 Phase 1 is delivered: the site is live at https://deltaxy-ai.github.io/deltaxy-handbook/ (see the [Phase 1 release record](releases/phase-1.md)). Phases 2 to 5 are planned and unchecked; this roadmap does not claim they exist.
 
+On 2026-10-21 the owner chose to publish the whole source handbook at once, instead of in phase batches: README, approval register, 14 standards, 3 patterns, and 5 templates (see [content import](releases/content-import.md)). The content-publishing tasks in Phases 2, 3, and 5 are therefore done. Their feature tasks (approval data and panels, rule anchors, task guide, Markdown output, template download) remain planned.
+
 Out of scope for these phases: application authentication, a database or separate backend, contextual questions, rich-text proposals, and an application-managed approval workflow.
 
 The source handbook is `C:/source/business/operations/governance/engineering-handbook`. Import only content reviewed for public release. Keep public availability, policy approval, and product adoption distinct.
