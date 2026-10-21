@@ -1,0 +1,460 @@
+<!doctype html>
+<!--
+  Static UX example for docs/styleguide.md.
+  Shows the Documentation standard in its target state after roadmap Phase 4 (complete catalogue, approval record, Markdown actions); templates stay unpublished until Phase 5.
+  Not the production site: search, copy, and navigation links are not wired up.
+-->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation and specification standard · DeltaXY Handbook (example screen)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+<script>
+  (() => {
+    const saved = localStorage.getItem('hb-theme');
+    const dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  })();
+</script>
+<style>
+  :root[data-theme='light'] {
+    --hb-bg: #ffffff;
+    --hb-bg-subtle: #fafafa;
+    --hb-bg-hover: #f2f2f2;
+    --hb-border: #ebebeb;
+    --hb-border-strong: #d4d4d4;
+    --hb-text: #171717;
+    --hb-text-muted: #5c5c5c;
+    --hb-accent: #0059d1;
+    --hb-draft-text: #8a4b00;
+    --hb-draft-bg: #fff4e0;
+    --hb-approved-text: #0f6b3a;
+    --hb-approved-bg: #e8f8ee;
+    --hb-shadow-overlay: 0 16px 40px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);
+    color-scheme: light;
+  }
+  :root[data-theme='dark'] {
+    --hb-bg: #0a0a0a;
+    --hb-bg-subtle: #111111;
+    --hb-bg-hover: #1c1c1c;
+    --hb-border: #262626;
+    --hb-border-strong: #3d3d3d;
+    --hb-text: #ededed;
+    --hb-text-muted: #a1a1a1;
+    --hb-accent: #52a8ff;
+    --hb-draft-text: #ffb84d;
+    --hb-draft-bg: #2b1d07;
+    --hb-approved-text: #5ee08f;
+    --hb-approved-bg: #0c2416;
+    --hb-shadow-overlay: 0 16px 40px rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+  :root {
+    --hb-font: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --hb-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    --header-h: 64px;
+    --sidebar-w: 17rem;
+    --toc-w: 14rem;
+    --content-w: 45rem;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-padding-top: calc(var(--header-h) + 1rem); }
+  body {
+    margin: 0;
+    background: var(--hb-bg);
+    color: var(--hb-text);
+    font: 400 16px/1.7 var(--hb-font);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--hb-accent); outline-offset: 2px; border-radius: 4px; }
+  @media (prefers-reduced-motion: no-preference) {
+    a, button, .nav a { transition: color 120ms, background-color 120ms, text-decoration-color 120ms, border-color 120ms; }
+  }
+  .skip { position: absolute; left: -999px; top: 8px; z-index: 50; background: var(--hb-text); color: var(--hb-bg); padding: 6px 12px; border-radius: 6px; }
+  .skip:focus { left: 8px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  svg { flex: none; }
+
+  /* Header */
+  .header {
+    position: sticky; top: 0; z-index: 20;
+    height: var(--header-h);
+    display: flex; align-items: center; gap: 24px;
+    padding: 0 24px;
+    background: color-mix(in srgb, var(--hb-bg) 88%, transparent);
+    backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--hb-border);
+  }
+  .wordmark { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; text-decoration: none; white-space: nowrap; }
+  .wordmark span { color: var(--hb-text-muted); font-weight: 500; }
+  .section-link { font-size: 14px; color: var(--hb-text); text-decoration: none; font-weight: 500; padding: 4px 0; border-bottom: 1px solid var(--hb-text); }
+  .header-spacer { flex: 1; }
+  .search {
+    display: flex; align-items: center; gap: 8px;
+    width: 260px; height: 34px; padding: 0 6px 0 10px;
+    background: var(--hb-bg-subtle); color: var(--hb-text-muted);
+    border: 1px solid var(--hb-border); border-radius: 8px;
+    font: 400 14px var(--hb-font); cursor: pointer; text-align: left;
+  }
+  .search:hover { border-color: var(--hb-border-strong); }
+  .search .label { flex: 1; }
+  kbd { font: 500 11px var(--hb-font); color: var(--hb-text-muted); border: 1px solid var(--hb-border); background: var(--hb-bg); border-radius: 4px; padding: 1px 5px; }
+  .icon-btn {
+    display: inline-grid; place-items: center; width: 32px; height: 32px;
+    background: transparent; color: var(--hb-text-muted);
+    border: 1px solid transparent; border-radius: 8px; cursor: pointer;
+  }
+  .icon-btn:hover { color: var(--hb-text); background: var(--hb-bg-hover); }
+  .menu-btn, .search-icon { display: none; }
+  [data-theme='light'] .icon-sun, [data-theme='dark'] .icon-moon { display: none; }
+
+  /* Layout */
+  .layout { display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); }
+  .sidebar {
+    position: sticky; top: var(--header-h); align-self: start;
+    height: calc(100vh - var(--header-h)); overflow-y: auto;
+    padding: 20px 12px 32px; border-right: 1px solid var(--hb-border);
+    background: var(--hb-bg);
+  }
+  .nav-group { margin: 0 0 20px; }
+  .nav-label { font-size: 12px; font-weight: 500; color: var(--hb-text-muted); padding: 0 10px 6px; margin: 0; }
+  .nav ul { list-style: none; margin: 0; padding: 0; }
+  .nav a {
+    display: block; padding: 5px 10px; border-radius: 6px;
+    font-size: 14px; line-height: 1.5; color: var(--hb-text-muted); text-decoration: none;
+  }
+  .nav a:hover { color: var(--hb-text); background: var(--hb-bg-hover); }
+  .nav a[aria-current='page'] { color: var(--hb-text); background: var(--hb-bg-hover); font-weight: 500; box-shadow: inset 2px 0 0 var(--hb-accent); }
+
+  .main-wrap { display: grid; grid-template-columns: minmax(0, 1fr) var(--toc-w); gap: 48px; padding: 40px 32px 80px 56px; max-width: calc(var(--content-w) + var(--toc-w) + 48px + 88px); }
+  main { min-width: 0; max-width: var(--content-w); }
+
+  /* Page header */
+  .breadcrumb { display: flex; gap: 6px; align-items: center; margin: 0; padding: 0; list-style: none; font-size: 13px; color: var(--hb-text-muted); }
+  .breadcrumb a { text-decoration: none; }
+  .breadcrumb a:hover { color: var(--hb-text); }
+  .breadcrumb li + li::before { content: '/'; margin-right: 6px; color: var(--hb-border-strong); }
+  .title-row { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin: 0 0 14px; }
+  h1 { margin: 0; font-size: 40px; line-height: 1.1; font-weight: 600; letter-spacing: -0.035em; text-wrap: balance; }
+  .lead { margin: 14px 0 0; font-size: 18px; line-height: 1.6; color: var(--hb-text-muted); text-wrap: pretty; }
+  .actions { display: flex; gap: 8px; flex: none; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px;
+    font: 500 13px var(--hb-font); color: var(--hb-text);
+    background: var(--hb-bg); border: 1px solid var(--hb-border-strong); border-radius: 8px; cursor: pointer; text-decoration: none; white-space: nowrap;
+  }
+  .btn:hover { background: var(--hb-bg-hover); }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin: 22px 0 0; padding: 14px 0; border-block: 1px solid var(--hb-border); font-size: 13px; color: var(--hb-text-muted); }
+  .meta dt { display: inline; font-weight: 400; }
+  .meta dd { display: inline; margin: 0 0 0 6px; color: var(--hb-text); font-weight: 500; }
+  .meta div { display: flex; align-items: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px;
+    font-size: 12px; font-weight: 500; border-radius: 6px; line-height: 1;
+  }
+  .badge-draft { color: var(--hb-draft-text); background: var(--hb-draft-bg); border: 1px solid color-mix(in srgb, var(--hb-draft-text) 30%, transparent); }
+  .badge-approved { color: var(--hb-approved-text); background: var(--hb-approved-bg); border: 1px solid color-mix(in srgb, var(--hb-approved-text) 30%, transparent); }
+  .badge-muted { color: var(--hb-text-muted); background: var(--hb-bg-hover); border: 1px solid var(--hb-border); height: 20px; font-size: 11px; padding: 0 6px; vertical-align: 2px; }
+
+  /* Callout */
+  .callout { display: flex; gap: 12px; margin: 24px 0 0; padding: 14px 16px; background: var(--hb-bg-subtle); border: 1px solid var(--hb-border); border-radius: 8px; font-size: 14px; line-height: 1.6; }
+  .callout svg { color: var(--hb-draft-text); margin-top: 3px; }
+  .callout p { margin: 0; }
+
+  /* Prose */
+  .prose h2 { margin: 48px 0 12px; font-size: 24px; line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; }
+  .prose h3 { margin: 32px 0 8px; font-size: 18px; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
+  .prose p { margin: 0 0 16px; }
+  .prose ol { margin: 0 0 16px; padding-left: 22px; }
+  .prose li { margin: 0 0 8px; padding-left: 4px; }
+  .prose li::marker { color: var(--hb-text-muted); }
+  .prose a { text-decoration: underline; text-decoration-color: var(--hb-border-strong); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .prose a:hover { text-decoration-color: var(--hb-text); }
+  .anchor { margin-left: 8px; color: var(--hb-text-muted); text-decoration: none !important; opacity: 0; font-weight: 400; }
+  h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
+  code { font: 400 13px/1 var(--hb-font-mono); background: var(--hb-bg-hover); border: 1px solid var(--hb-border); border-radius: 5px; padding: 2px 5px; }
+  .unpublished { white-space: nowrap; }
+
+  /* Rules table */
+  .table-wrap { margin: 16px 0 8px; border: 1px solid var(--hb-border); border-radius: 8px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.55; }
+  th { text-align: left; font-size: 12px; font-weight: 500; color: var(--hb-text-muted); background: var(--hb-bg-subtle); padding: 9px 14px; border-bottom: 1px solid var(--hb-border); white-space: nowrap; }
+  td { padding: 12px 14px; vertical-align: top; border-bottom: 1px solid var(--hb-border); }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { white-space: nowrap; }
+  td:last-child { color: var(--hb-text-muted); min-width: 13rem; }
+  td:nth-child(2) { min-width: 17rem; }
+  .rule-id { font: 500 13px var(--hb-font-mono); text-decoration: none !important; }
+  .rule-id:hover { text-decoration: underline !important; }
+  tr:target td { background: color-mix(in srgb, var(--hb-accent) 8%, transparent); }
+
+  /* Approval record */
+  .record { margin: 48px 0 0; border: 1px solid var(--hb-border); border-radius: 8px; overflow: hidden; }
+  .record-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; background: var(--hb-bg-subtle); border-bottom: 1px solid var(--hb-border); }
+  .record-head h2 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+  .record dl { margin: 0; padding: 4px 16px; display: grid; grid-template-columns: 9rem 1fr; font-size: 14px; }
+  .record dt, .record dd { margin: 0; padding: 10px 0; border-bottom: 1px solid var(--hb-border); }
+  .record dt { color: var(--hb-text-muted); }
+  .record dt:nth-last-of-type(1), .record dd:last-of-type { border-bottom: 0; }
+
+  /* Pager & footer */
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 48px 0 0; }
+  .pager a { display: block; padding: 14px 16px; border: 1px solid var(--hb-border); border-radius: 8px; text-decoration: none; }
+  .pager a:hover { border-color: var(--hb-border-strong); background: var(--hb-bg-subtle); }
+  .pager .dir { display: block; font-size: 12px; color: var(--hb-text-muted); }
+  .pager .page { font-size: 15px; font-weight: 500; }
+  .pager .next { text-align: right; }
+  .page-footer { margin-top: 32px; font-size: 13px; color: var(--hb-text-muted); display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* On this page */
+  .toc { position: sticky; top: calc(var(--header-h) + 40px); align-self: start; font-size: 13px; }
+  .toc-title { font-size: 13px; font-weight: 500; margin: 0 0 10px; }
+  .toc ul { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--hb-border); }
+  .toc a { display: block; padding: 4px 0 4px 12px; margin-left: -1px; color: var(--hb-text-muted); text-decoration: none; border-left: 1px solid transparent; line-height: 1.45; }
+  .toc a:hover { color: var(--hb-text); }
+  .toc a[aria-current='true'] { color: var(--hb-text); border-left-color: var(--hb-text); }
+  .toc-mobile { display: none; }
+
+  /* Tablet: TOC collapses into a bar above content (Starlight 72rem breakpoint) */
+  @media (max-width: 72rem) {
+    .main-wrap { grid-template-columns: minmax(0, 1fr); padding: 32px 32px 64px; }
+    .toc { display: none; }
+    .toc-mobile { display: block; margin: 16px 0 8px; border: 1px solid var(--hb-border); border-radius: 8px; font-size: 14px; }
+    .toc-mobile summary { padding: 10px 14px; cursor: pointer; color: var(--hb-text-muted); }
+    .toc-mobile ul { list-style: none; margin: 0; padding: 4px 14px 12px; }
+    .toc-mobile a { display: block; padding: 4px 0; color: var(--hb-text-muted); text-decoration: none; }
+  }
+  /* Mobile: sidebar becomes a menu overlay (Starlight 50em breakpoint) */
+  @media (max-width: 50em) {
+    :root { --header-h: 56px; }
+    .header { padding: 0 12px 0 16px; gap: 8px; }
+    .section-link, .search { display: none; }
+    .menu-btn, .search-icon { display: inline-grid; }
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    .sidebar { display: none; position: fixed; inset: var(--header-h) 0 0 0; align-self: stretch; height: auto; z-index: 15; border-right: 0; box-shadow: var(--hb-shadow-overlay); }
+    body.menu-open .sidebar { display: block; }
+    body.menu-open { overflow: hidden; }
+    .main-wrap { padding: 20px 16px 56px; }
+    h1 { font-size: 32px; line-height: 1.15; letter-spacing: -0.03em; }
+    .lead { font-size: 17px; }
+    .title-row { flex-wrap: wrap; gap: 12px; }
+    .pager { grid-template-columns: 1fr; }
+    .record dl { grid-template-columns: 1fr; }
+    .record dt { padding-bottom: 0; border-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="header">
+  <button class="icon-btn menu-btn" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar" id="menu-btn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <a class="wordmark" href="#">DeltaXY <span>Handbook</span></a>
+  <a class="section-link" href="#" aria-current="true">Engineering</a>
+  <div class="header-spacer"></div>
+  <button class="search" type="button" aria-label="Search handbook" aria-keyshortcuts="Control+K Meta+K">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <span class="label">Search handbook</span>
+    <kbd>Ctrl K</kbd>
+  </button>
+  <button class="icon-btn search-icon" type="button" aria-label="Search handbook">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+  </button>
+  <button class="icon-btn" type="button" id="theme-btn" aria-label="Switch to dark theme">
+    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+</header>
+
+<div class="layout">
+  <nav class="sidebar nav" id="sidebar" aria-label="Engineering">
+    <div class="nav-group">
+      <p class="nav-label">Overview</p>
+      <ul>
+        <li><a href="#">Introduction</a></li>
+        <li><a href="#">Approval status</a></li>
+      </ul>
+    </div>
+    <div class="nav-group">
+      <p class="nav-label">Standards</p>
+      <ul>
+        <li><a href="#">Architecture</a></li>
+        <li><a href="#">TypeScript and coding</a></li>
+        <li><a href="#">Testing</a></li>
+        <li><a href="#" aria-current="page">Documentation</a></li>
+        <li><a href="#">Next.js</a></li>
+        <li><a href="#">UX</a></li>
+        <li><a href="#">Visual design</a></li>
+        <li><a href="#">Interfaces</a></li>
+        <li><a href="#">Storage</a></li>
+        <li><a href="#">Identity and security</a></li>
+        <li><a href="#">AI execution</a></li>
+        <li><a href="#">Evaluation</a></li>
+        <li><a href="#">Observability</a></li>
+        <li><a href="#">Delivery</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main-wrap">
+    <main id="content">
+      <div class="title-row">
+        <ol class="breadcrumb">
+          <li><a href="#">Engineering</a></li>
+          <li><a href="#">Standards</a></li>
+        </ol>
+        <div class="actions">
+          <button class="btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>
+            Copy page
+          </button>
+          <a class="btn" href="#">View Markdown</a>
+        </div>
+      </div>
+      <h1 id="_top">Documentation and specification</h1>
+      <p class="lead">One authoritative home per fact, four foundation records for every project, and evidence-based change review.</p>
+
+      <dl class="meta">
+        <div>
+          <dt class="sr-only">Status</dt>
+          <dd style="margin:0">
+            <span class="badge badge-draft">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+              Draft
+            </span>
+          </dd>
+        </div>
+        <div><dt>Decision</dt><dd>Deferred for detailed review</dd></div>
+        <div><dt>Version</dt><dd>0.1</dd></div>
+        <div><dt>Owner</dt><dd>Product owner and technical lead</dd></div>
+      </dl>
+
+      <div class="callout" role="note">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+        <p><strong>Draft — not binding.</strong> MUST becomes binding only after approval and adoption. See the <a href="#" style="text-underline-offset:3px">handbook governance</a>.</p>
+      </div>
+
+      <details class="toc-mobile">
+        <summary>On this page</summary>
+        <ul>
+          <li><a href="#purpose">Purpose and tradeoff</a></li>
+          <li><a href="#rules">Proposed rules</a></li>
+          <li><a href="#correctness">Three levels of correctness</a></li>
+          <li><a href="#adoption">Adoption and evidence</a></li>
+          <li><a href="#approval">Approval record</a></li>
+        </ul>
+      </details>
+
+      <article class="prose">
+        <h2 id="purpose">Purpose and tradeoff<a class="anchor" href="#purpose" aria-label="Link to Purpose and tradeoff">#</a></h2>
+        <p>Make intent and decisions discoverable without creating competing sources of truth. Fixed questions help reviewers find omissions; they do not prove the answers are correct. Short, maintained documents are preferable to exhaustive descriptions that drift from implementation.</p>
+
+        <h2 id="rules">Proposed rules<a class="anchor" href="#rules" aria-label="Link to Proposed rules">#</a></h2>
+        <p>Each rule has a stable ID. Link to a single rule with its ID, for example <a href="#doc-05"><code>#doc-05</code></a>.</p>
+        <div class="table-wrap" role="region" aria-label="Documentation rules" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">ID</th><th scope="col">Rule</th><th scope="col">Verification</th></tr></thead>
+            <tbody>
+              <tr id="doc-01"><td><a class="rule-id" href="#doc-01">DOC-01</a></td><td>A project MUST have a product brief, architecture record, roadmap, and project profile, or a reviewed not-applicable reason for a document. Each records owner, status, and review date.</td><td>Structural document check plus owner review; unknown sections are explicit, not fabricated.</td></tr>
+              <tr id="doc-02"><td><a class="rule-id" href="#doc-02">DOC-02</a></td><td>Product briefs MUST describe users, current problem, core journeys, scope/non-goals, success measurement, constraints, evidence, and unanswered questions. Separate confirmed requests from proposed interpretation.</td><td>Product owner checks the <span class="unpublished">product template <span class="badge badge-muted">Not yet published</span></span>; customer/domain reviewer confirms consequential assumptions.</td></tr>
+              <tr id="doc-03"><td><a class="rule-id" href="#doc-03">DOC-03</a></td><td>Architecture records MUST describe system context, module responsibilities and interfaces, data ownership, trust boundaries, critical flows/failures, quality constraints, operations, and decision rationale. Mark unproven assumptions.</td><td>Technical reviewer walks representative success/failure scenarios through the <span class="unpublished">architecture template <span class="badge badge-muted">Not yet published</span></span>; attach spike evidence for uncertain critical assumptions.</td></tr>
+              <tr id="doc-04"><td><a class="rule-id" href="#doc-04">DOC-04</a></td><td>Roadmap outcomes MUST state useful user behavior, dependencies, owner, status, exit evidence, and timing certainty. Planned work MUST NOT be described as delivered.</td><td>Compare roadmap status with accepted change/release evidence.</td></tr>
+              <tr id="doc-05"><td><a class="rule-id" href="#doc-05">DOC-05</a></td><td>Each mandatory standard MUST have a stable rule ID, applicability, observable requirement, owner role, and verification method. Exceptions MUST follow handbook governance.</td><td>Check metadata/rules and inspect the exception register. Rule IDs remain stable when wording is clarified; material changes are reviewed.</td></tr>
+              <tr id="doc-06"><td><a class="rule-id" href="#doc-06">DOC-06</a></td><td>A fact or contract MUST have one authoritative home. Reference executable API contracts, tokens, configuration and code rather than manually copying their changing contents into prose.</td><td>Reviewer checks duplicate definitions and reference validity. Significant rationale remains documented even if configuration is self-describing.</td></tr>
+              <tr id="doc-07"><td><a class="rule-id" href="#doc-07">DOC-07</a></td><td>Feature changes MUST record observable scenarios, applicable rule IDs, design decisions where needed, and verification evidence before acceptance. Unknown or untested outcomes MUST remain visible.</td><td>Review change evidence, exercise scenarios, and verify linked outputs.</td></tr>
+              <tr id="doc-08"><td><a class="rule-id" href="#doc-08">DOC-08</a></td><td>Changes to product behavior, contracts, architecture or operation MUST update affected authoritative documents in the same reviewed change, or document why no update is needed.</td><td>Reviewer checks the document-impact section against the actual change. A bulk “docs unchanged” claim is insufficient for changed contracts.</td></tr>
+              <tr id="doc-09"><td><a class="rule-id" href="#doc-09">DOC-09</a></td><td>Agent instructions MUST route by task to the exact pinned standards. Keep common pointers short; load specialist guidance when applicable. An agent’s statement of compliance is not evidence.</td><td>Review representative UI/API/AI tasks to see that relevant rules reach the change artifacts and checks.</td></tr>
+              <tr id="doc-10"><td><a class="rule-id" href="#doc-10">DOC-10</a></td><td>Public/customer artifacts MUST exclude confidential cross-customer information, credentials, and unsupported claims. Internal handbook examples MUST use synthetic material.</td><td>Human disclosure review and secret checks appropriate to the changed artifacts.</td></tr>
+              <tr id="doc-11"><td><a class="rule-id" href="#doc-11">DOC-11</a></td><td>Significant decisions MUST record context, choice, alternatives, consequences, status, and what would cause reconsideration. Retain superseded rationale and link its replacement.</td><td>Technical review; use <code>docs/decisions/</code> when a decision cannot be explained clearly in the architecture record.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="correctness">Three levels of correctness<a class="anchor" href="#correctness" aria-label="Link to Three levels of correctness">#</a></h2>
+        <ol>
+          <li><strong>Structure:</strong> sections, owners, IDs, valid links. Automatable, but limited.</li>
+          <li><strong>Consistency:</strong> documents agree with each other and executable contracts. Automation and agents can flag issues; reviewers resolve them.</li>
+          <li><strong>Reality:</strong> stakeholders confirm the need, a real application walkthrough demonstrates behavior, and tests/evaluations exercise relevant cases. Neither formatting nor model confidence establishes this.</li>
+        </ol>
+
+        <h2 id="adoption">Adoption and evidence<a class="anchor" href="#adoption" aria-label="Link to Adoption and evidence">#</a></h2>
+        <p>Instantiate templates as actual project records. Template instructions are not approved product facts. Apply requirements to the next bounded change; do not retroactively invent specifications for unverified behavior.</p>
+      </article>
+
+      <section class="record" aria-labelledby="approval">
+        <div class="record-head">
+          <h2 id="approval">Approval record</h2>
+          <span class="badge badge-draft">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+            No approval recorded
+          </span>
+        </div>
+        <dl>
+          <dt>Latest decision</dt><dd>Deferred for detailed review</dd>
+          <dt>Date</dt><dd>2026-10-20</dd>
+          <dt>Decision scope</dt><dd>v0.1 — Proof and governance group</dd>
+          <dt>Decision authority</dt><dd>DeltaXY technical leadership</dd>
+          <dt>Register</dt><dd><a href="#" style="text-underline-offset:3px;text-decoration-color:var(--hb-border-strong)">Approval status</a></dd>
+        </dl>
+      </section>
+
+      <nav class="pager" aria-label="Previous and next pages">
+        <a href="#"><span class="dir">Previous</span><span class="page">Testing</span></a>
+        <a class="next" href="#"><span class="dir">Next</span><span class="page">Next.js</span></a>
+      </nav>
+      <footer class="page-footer">
+        <span>Last updated 2026-10-20</span>
+        <span>Revision <code>example</code></span>
+      </footer>
+    </main>
+
+    <aside class="toc" aria-label="On this page">
+      <p class="toc-title">On this page</p>
+      <ul>
+        <li><a href="#_top">Overview</a></li>
+        <li><a href="#purpose" aria-current="true">Purpose and tradeoff</a></li>
+        <li><a href="#rules">Proposed rules</a></li>
+        <li><a href="#correctness">Three levels of correctness</a></li>
+        <li><a href="#adoption">Adoption and evidence</a></li>
+        <li><a href="#approval">Approval record</a></li>
+      </ul>
+    </aside>
+  </div>
+</div>
+
+<script>
+  const themeBtn = document.getElementById('theme-btn');
+  const syncThemeLabel = () => {
+    themeBtn.setAttribute('aria-label', document.documentElement.dataset.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  };
+  themeBtn.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('hb-theme', next);
+    syncThemeLabel();
+  });
+  syncThemeLabel();
+
+  const menuBtn = document.getElementById('menu-btn');
+  menuBtn.addEventListener('click', () => {
+    const open = document.body.classList.toggle('menu-open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && document.body.classList.contains('menu-open')) {
+      menuBtn.click();
+      menuBtn.focus();
+    }
+  });
+</script>
+</body>
+</html>

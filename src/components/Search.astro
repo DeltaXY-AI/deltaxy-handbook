@@ -1,0 +1,23 @@
+---
+// Starlight's search, unchanged except for the trigger's text alternatives. The trigger shows
+// "Search handbook" plus a `Ctrl K` / `⌘ K` hint, and its accessible name must contain all of
+// that visible text (WCAG 2.5.3 Label in Name). Once Starlight has chosen the platform key:
+//  - append the hint to the accessible name;
+//  - separate the hint's parts with spaces so text extraction reads "Ctrl K", not "CtrlK".
+//    The parts are flex items, so the added whitespace does not change the layout.
+import Search from '@astrojs/starlight/components/Search.astro';
+---
+
+<Search {...Astro.props} />
+
+<script is:inline>
+	document.querySelectorAll('site-search button[data-open-modal]').forEach((button) => {
+		const hint = button.querySelector(':scope > kbd');
+		if (!hint || hint.style.display === 'none') return;
+		const keys = [...hint.querySelectorAll('kbd')];
+		keys.forEach((key) => key.before(' '));
+		hint.before(' ');
+		const keyText = keys.map((key) => key.textContent.trim()).join(' ');
+		button.setAttribute('aria-label', `${button.getAttribute('aria-label')} ${keyText}`);
+	});
+</script>

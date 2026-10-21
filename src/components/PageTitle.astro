@@ -1,0 +1,210 @@
+---
+// Page header: breadcrumb, title, lead description, metadata row, and the draft notice.
+// Starlight requires the title to be rendered as <h1 id="_top"> (its PAGE_TITLE_ID, not exported).
+import StatusBadge from './StatusBadge.astro';
+
+const { entry, id } = Astro.locals.starlightRoute;
+const { title, description, status, version, owner, decision } = entry.data;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isStandard = id.startsWith('engineering/standards/');
+const crumbs = isStandard
+	? [{ label: 'Engineering', href: `${base}/engineering/` }, { label: 'Standards' }]
+	: id.startsWith('engineering/') ? [{ label: 'Engineering', href: `${base}/engineering/` }] : [];
+const hasMeta = Boolean(status || version || owner || decision);
+---
+
+<div class="page-header">
+	{
+		crumbs.length > 0 && (
+			<nav aria-label="Breadcrumb">
+				<ol class="breadcrumb">
+					{crumbs.map((crumb) => (
+						<li>{crumb.href ? <a href={crumb.href}>{crumb.label}</a> : crumb.label}</li>
+					))}
+				</ol>
+			</nav>
+		)
+	}
+	<h1 id="_top">{title}</h1>
+	{description && <p class="lead">{description}</p>}
+	{
+		hasMeta && (
+			<dl class="meta">
+				{status && (
+					<div>
+						<dt class="sr-only">Status</dt>
+						<dd>
+							<StatusBadge status={status} />
+						</dd>
+					</div>
+				)}
+				{decision && (
+					<div>
+						<dt>Decision</dt>
+						<dd>{decision}</dd>
+					</div>
+				)}
+				{version && (
+					<div>
+						<dt>Version</dt>
+						<dd>{version}</dd>
+					</div>
+				)}
+				{owner && (
+					<div>
+						<dt>Owner</dt>
+						<dd>{owner}</dd>
+					</div>
+				)}
+			</dl>
+		)
+	}
+	{
+		status === 'Draft' && (
+			<div class="draft-notice" role="note">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.25"
+					aria-hidden="true"
+				>
+					<circle cx="12" cy="12" r="8" />
+				</svg>
+				<p>
+					<strong>Draft — not binding.</strong> MUST becomes binding only after approval and
+					adoption. See the <a href={`${base}/engineering/#ownership-and-precedence`}>handbook governance</a>.
+				</p>
+			</div>
+		)
+	}
+</div>
+
+<style>
+	.page-header {
+		margin-top: 1rem;
+	}
+
+	.breadcrumb {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.375rem;
+		margin: 0 0 0.875rem;
+		padding: 0;
+		list-style: none;
+		font-size: 0.8125rem;
+		line-height: 1.4;
+		color: var(--hb-text-muted);
+	}
+
+	.breadcrumb li + li::before {
+		content: '/';
+		margin-inline-end: 0.375rem;
+		color: var(--hb-text-muted);
+	}
+
+	.breadcrumb a {
+		color: var(--hb-text-muted);
+		text-decoration: none;
+	}
+
+	.breadcrumb a:hover {
+		color: var(--hb-text);
+		text-decoration: underline;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: 2rem;
+		line-height: 1.15;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+		color: var(--hb-text);
+		text-wrap: balance;
+	}
+
+	.lead {
+		margin: 0.875rem 0 0;
+		font-size: 1.125rem;
+		line-height: 1.6;
+		color: var(--hb-text-muted);
+		text-wrap: pretty;
+	}
+
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem 1.25rem;
+		margin: 1.375rem 0 0;
+		padding: 0.875rem 0;
+		border-block: 1px solid var(--hb-border);
+		font-size: 0.8125rem;
+		line-height: 1.4;
+		color: var(--hb-text-muted);
+	}
+
+	.meta div {
+		display: flex;
+		align-items: center;
+	}
+
+	.meta dt {
+		font-weight: 400;
+	}
+
+	.meta dd {
+		margin: 0 0 0 0.375rem;
+		color: var(--hb-text);
+		font-weight: 500;
+	}
+
+	.meta div:first-child dd {
+		margin: 0;
+	}
+
+	.draft-notice {
+		display: flex;
+		gap: 0.75rem;
+		margin-top: 1.5rem;
+		padding: 0.875rem 1rem;
+		border: 1px solid var(--hb-border);
+		border-radius: 8px;
+		background-color: var(--hb-bg-subtle);
+		font-size: 0.875rem;
+		line-height: 1.6;
+		color: var(--hb-text);
+	}
+
+	.draft-notice svg {
+		flex: none;
+		margin-top: 0.1875rem;
+		color: var(--hb-draft-text);
+	}
+
+	.draft-notice p {
+		margin: 0;
+	}
+
+	.draft-notice a {
+		color: var(--hb-text);
+		text-decoration: underline;
+		text-decoration-color: var(--hb-border-strong);
+		text-underline-offset: 3px;
+	}
+
+	.draft-notice a:hover {
+		text-decoration-color: currentColor;
+	}
+
+	@media (min-width: 50em) {
+		h1 {
+			font-size: 2.5rem;
+			line-height: 1.1;
+			letter-spacing: -0.035em;
+		}
+	}
+</style>

@@ -1,0 +1,36 @@
+{
+  "name": "deltaxy-handbook",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Public, read-first DeltaXY Handbook, starting with Engineering.",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.6.0",
+      "onFail": "error"
+    }
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check:dist": "node scripts/check-dist.mjs",
+    "check:a11y": "node scripts/check-a11y.mjs"
+  },
+  "dependencies": {
+    "@astrojs/markdown-satteri": "0.4.4",
+    "@astrojs/starlight": "0.42.6",
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/geist-mono": "5.3.0",
+    "astro": "7.4.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "node-html-parser": "9.0.5",
+    "playwright": "1.64.1"
+  }
+}

@@ -1,0 +1,16 @@
+# Local credentials and environment-specific settings
+.env
+.env.*
+.env-*
+!.env.example
+
+# Local experiments and generated application files
+.scratch/
+.vercel/
+node_modules/
+.next/
+*.tsbuildinfo
+coverage/
+dist/
+.astro/
+.omp/

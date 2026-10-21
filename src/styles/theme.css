@@ -1,0 +1,357 @@
+/*
+ * DeltaXY Handbook theme. Tokens and rules follow docs/styleguide.md.
+ * Starlight inverts its gray scale between themes, so `--hb-*` values are defined per theme
+ * and the Starlight mapping below stays unchanged.
+ */
+
+/* Dark theme (Starlight default). */
+:root {
+	--hb-bg: #0a0a0a;
+	--hb-bg-subtle: #111111;
+	--hb-bg-hover: #1c1c1c;
+	--hb-border: #262626;
+	--hb-border-strong: #3d3d3d;
+	--hb-text: #ededed;
+	--hb-text-muted: #a1a1a1;
+	--hb-accent: #52a8ff;
+	--hb-draft-text: #ffb84d;
+	--hb-draft-bg: #2b1d07;
+	--hb-approved-text: #5ee08f;
+	--hb-approved-bg: #0c2416;
+	--hb-superseded-text: #a1a1a1;
+	--hb-superseded-bg: #1c1c1c;
+}
+
+:root[data-theme='light'] {
+	--hb-bg: #ffffff;
+	--hb-bg-subtle: #fafafa;
+	--hb-bg-hover: #f2f2f2;
+	--hb-border: #ebebeb;
+	--hb-border-strong: #d4d4d4;
+	--hb-text: #171717;
+	--hb-text-muted: #5c5c5c;
+	--hb-accent: #0059d1;
+	--hb-draft-text: #8a4b00;
+	--hb-draft-bg: #fff4e0;
+	--hb-approved-text: #0f6b3a;
+	--hb-approved-bg: #e8f8ee;
+	--hb-superseded-text: #5c5c5c;
+	--hb-superseded-bg: #f2f2f2;
+}
+
+:root {
+	--sl-color-black: var(--hb-bg);
+	--sl-color-white: var(--hb-text);
+	--sl-color-text: var(--hb-text);
+	--sl-color-gray-1: var(--hb-text);
+	--sl-color-gray-2: var(--hb-text);
+	--sl-color-gray-3: var(--hb-text-muted);
+	--sl-color-gray-4: var(--hb-text-muted);
+	--sl-color-gray-5: var(--hb-border);
+	--sl-color-gray-6: var(--hb-bg-subtle);
+	--sl-color-gray-7: var(--hb-bg-subtle);
+	--sl-color-bg: var(--hb-bg);
+	--sl-color-bg-nav: var(--hb-bg);
+	--sl-color-bg-sidebar: var(--hb-bg);
+	--sl-color-bg-inline-code: var(--hb-bg-hover);
+	--sl-color-hairline: var(--hb-border);
+	--sl-color-hairline-light: var(--hb-border);
+	--sl-color-hairline-shade: var(--hb-border);
+	--sl-color-accent: var(--hb-accent);
+	--sl-color-accent-low: var(--hb-bg-hover);
+	--sl-color-accent-high: var(--hb-text);
+	--sl-color-text-accent: var(--hb-text);
+	--sl-color-text-invert: var(--hb-bg);
+	--sl-color-bg-accent: var(--hb-text);
+
+	--sl-font: 'Geist Variable';
+	--sl-font-mono: 'Geist Mono Variable';
+
+	--sl-sidebar-width: 17rem;
+	--sl-text-h1: 2rem;
+	--sl-text-h2: 1.5rem;
+	--sl-text-h3: 1.125rem;
+	--sl-text-h4: 1rem;
+	--sl-line-height: 1.7;
+
+	--hb-transition: 140ms ease;
+}
+
+@media (min-width: 50em) {
+	:root {
+		--sl-text-h1: 2.5rem;
+		--sl-text-h2: 1.5rem;
+		--sl-text-h3: 1.125rem;
+		--sl-text-h4: 1rem;
+	}
+}
+
+/* Focus: 2px accent outline, 2px offset, on every interactive element. */
+:focus-visible {
+	outline: 2px solid var(--hb-accent);
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	a,
+	button,
+	summary,
+	.sidebar-content a {
+		transition:
+			color var(--hb-transition),
+			background-color var(--hb-transition),
+			text-decoration-color var(--hb-transition);
+	}
+}
+
+/* Header ------------------------------------------------------------------ */
+
+/* No social links: drop the divider Starlight draws after them. */
+.header .social-icons {
+	display: none;
+}
+
+.header {
+	border-color: var(--hb-border);
+}
+
+/* Mobile menu button: quiet bordered icon button, no floating shadow. */
+.sl-menu-button,
+:root[data-theme='light'] .sl-menu-button {
+	border: 1px solid var(--hb-border);
+	border-radius: 6px;
+	background-color: var(--hb-bg);
+	color: var(--hb-text);
+	box-shadow: none;
+}
+
+.sl-menu-button:hover,
+.sl-menu-button:has(~ :popover-open),
+:root[data-theme='light'] .sl-menu-button:has(~ :popover-open) {
+	background-color: var(--hb-bg-hover);
+}
+
+site-search button[data-open-modal] {
+	min-height: 2rem;
+	border: 1px solid var(--hb-border-strong);
+	border-radius: 6px;
+	background-color: var(--hb-bg);
+	color: var(--hb-text-muted);
+	font-size: 0.875rem;
+}
+
+site-search button[data-open-modal]:hover {
+	border-color: var(--hb-text-muted);
+	color: var(--hb-text);
+}
+
+site-search button[data-open-modal] kbd {
+	background-color: var(--hb-bg-subtle);
+	color: var(--hb-text-muted);
+	font-family: var(--__sl-font);
+	font-size: 0.75rem;
+}
+
+@media (max-width: 49.99em) {
+	site-search button[data-open-modal] {
+		min-width: 2rem;
+		border: 0;
+		justify-content: center;
+	}
+}
+
+/* Sidebar ----------------------------------------------------------------- */
+
+.sidebar-pane {
+	border-inline-end: 1px solid var(--hb-border);
+}
+
+.sidebar-content .group-label .large {
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: var(--hb-text-muted);
+}
+
+.sidebar-content a,
+.sidebar-content a.large {
+	font-size: 0.875rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: var(--hb-text-muted);
+}
+
+.sidebar-content a:hover {
+	color: var(--hb-text);
+	background-color: var(--hb-bg-hover);
+}
+
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
+	font-weight: 500;
+	color: var(--hb-text);
+	background-color: var(--hb-bg-hover);
+	box-shadow: inset 2px 0 0 var(--hb-accent);
+}
+
+/* "On this page" ---------------------------------------------------------- */
+
+starlight-toc a,
+mobile-starlight-toc a {
+	font-size: 0.8125rem;
+	color: var(--hb-text-muted);
+}
+
+starlight-toc a[aria-current='true'],
+mobile-starlight-toc a[aria-current='true'] {
+	color: var(--hb-text);
+	font-weight: 500;
+}
+
+/* Reading column ---------------------------------------------------------- */
+
+.sl-markdown-content h2 {
+	letter-spacing: -0.02em;
+	line-height: 1.3;
+}
+
+.sl-markdown-content h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.4;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+	color: var(--hb-text);
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-decoration-color: var(--hb-border-strong);
+	text-underline-offset: 3px;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	color: var(--hb-text);
+	text-decoration-color: currentColor;
+}
+
+/* Heading anchor links are icons, not underlined text. */
+.sl-markdown-content .sl-anchor-link {
+	text-decoration: none;
+}
+
+.sl-markdown-content code:not(:where(.not-content *)) {
+	border-radius: 4px;
+	font-size: 0.8125rem;
+}
+
+/* Tables: bordered container that scrolls horizontally on narrow screens; no zebra striping.
+ * The wrapper is a focusable region (added at build time) so keyboard users can scroll it. */
+.sl-markdown-content .hb-table-wrap {
+	overflow-x: auto;
+	border: 1px solid var(--hb-border);
+	border-radius: 8px;
+}
+
+.sl-markdown-content .hb-table-wrap table:not(:where(.not-content *)) {
+	display: table;
+	width: 100%;
+	overflow: visible;
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
+
+/* Rule tables keep readable columns and scroll inside their wrapper on narrow screens. */
+.sl-markdown-content .hb-table-wrap table.hb-rules {
+	min-width: 40rem;
+}
+
+.sl-markdown-content :is(th, td):not(:where(.not-content *)) {
+	border-bottom: 1px solid var(--hb-border);
+	padding: 0.625rem 0.75rem;
+	vertical-align: top;
+}
+
+.sl-markdown-content :is(th:first-child, td:first-child):not(:where(.not-content *)) {
+	padding-inline-start: 0.75rem;
+}
+
+.sl-markdown-content :is(th:last-child, td:last-child):not(:where(.not-content *)) {
+	padding-inline-end: 0.75rem;
+}
+
+.sl-markdown-content tr:last-child td:not(:where(.not-content *)) {
+	border-bottom: 0;
+}
+
+.sl-markdown-content th:not(:where(.not-content *)) {
+	background-color: var(--hb-bg-subtle);
+	color: var(--hb-text-muted);
+	font-size: 0.75rem;
+	font-weight: 500;
+	text-align: start;
+}
+
+/* Rule tables (`ID | Rule | Verification`), marked at build time. */
+.sl-markdown-content table.hb-rules td:first-child {
+	font-family: var(--__sl-font-mono);
+	font-size: 0.8125rem;
+	font-weight: 500;
+	white-space: nowrap;
+}
+
+.sl-markdown-content table.hb-rules td:last-child {
+	color: var(--hb-text-muted);
+}
+
+/* Callouts: restrained bordered panels. */
+.starlight-aside {
+	border: 1px solid var(--hb-border);
+	border-radius: 8px;
+	background-color: var(--hb-bg-subtle);
+	color: var(--hb-text);
+	--sl-color-asides-border: var(--hb-border);
+	--sl-color-asides-text-accent: var(--hb-text);
+}
+
+.starlight-aside--caution {
+	--sl-color-asides-text-accent: var(--hb-draft-text);
+}
+
+.starlight-aside__title {
+	font-size: 0.875rem;
+}
+
+/* References to unpublished guidance. */
+.hb-unpublished {
+	display: inline-block;
+	margin-inline-start: 0.25rem;
+	padding: 0 0.375rem;
+	border: 1px solid var(--hb-border-strong);
+	border-radius: 4px;
+	color: var(--hb-text-muted);
+	font-size: 0.75rem;
+	font-weight: 500;
+	line-height: 1.4;
+	white-space: nowrap;
+}
+
+/* Footer navigation: bordered cards. */
+.pagination-links a {
+	border: 1px solid var(--hb-border);
+	border-radius: 8px;
+	box-shadow: none;
+	color: var(--hb-text);
+}
+
+.pagination-links a:hover {
+	border-color: var(--hb-border-strong);
+}
+
+.pagination-links a span {
+	color: var(--hb-text-muted);
+	font-size: 0.8125rem;
+}
+
+.pagination-links a .link-title {
+	color: var(--hb-text);
+	font-size: 1rem;
+}

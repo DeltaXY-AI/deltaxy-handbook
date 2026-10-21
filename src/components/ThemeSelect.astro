@@ -1,0 +1,78 @@
+---
+// Icon button replacing Starlight's theme <select>. Follows the system setting until the reader
+// chooses a theme; the choice is stored under Starlight's own `starlight-theme` key.
+import { Icon } from '@astrojs/starlight/components';
+---
+
+<hb-theme-toggle>
+	<button type="button" class="theme-toggle" aria-label="Switch to light theme">
+		<Icon name="sun" class="icon-sun" />
+		<Icon name="moon" class="icon-moon" />
+	</button>
+</hb-theme-toggle>
+
+<script>
+	type Theme = 'dark' | 'light';
+	const storageKey = 'starlight-theme';
+	const mediaQuery = matchMedia('(prefers-color-scheme: light)');
+
+	const current = (): Theme =>
+		document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+
+	function apply(theme: Theme): void {
+		document.documentElement.dataset.theme = theme;
+		const next = theme === 'light' ? 'dark' : 'light';
+		document
+			.querySelectorAll('hb-theme-toggle button')
+			.forEach((button) => button.setAttribute('aria-label', `Switch to ${next} theme`));
+	}
+
+	mediaQuery.addEventListener('change', () => {
+		if (!localStorage.getItem(storageKey)) apply(mediaQuery.matches ? 'light' : 'dark');
+	});
+
+	class ThemeToggle extends HTMLElement {
+		constructor() {
+			super();
+			apply(current());
+			this.querySelector('button')?.addEventListener('click', () => {
+				const next: Theme = current() === 'light' ? 'dark' : 'light';
+				localStorage.setItem(storageKey, next);
+				apply(next);
+			});
+		}
+	}
+	customElements.define('hb-theme-toggle', ThemeToggle);
+</script>
+
+<style>
+	hb-theme-toggle {
+		display: inline-flex;
+	}
+
+	.theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		padding: 0;
+		border: 1px solid var(--hb-border);
+		border-radius: 6px;
+		background: transparent;
+		color: var(--hb-text-muted);
+		font-size: 1rem;
+		cursor: pointer;
+	}
+
+	.theme-toggle:hover {
+		background-color: var(--hb-bg-hover);
+		color: var(--hb-text);
+	}
+
+	/* Show the icon of the theme the button switches to. */
+	:global([data-theme='dark']) .theme-toggle :global(.icon-moon),
+	:global([data-theme='light']) .theme-toggle :global(.icon-sun) {
+		display: none;
+	}
+</style>

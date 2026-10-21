@@ -1,0 +1,60 @@
+---
+// Status badge. The label is always text; the color and icon are secondary cues.
+interface Props {
+	status: 'Draft' | 'Approved' | 'Superseded';
+}
+
+const { status } = Astro.props;
+---
+
+<span class:list={['badge', `badge-${status.toLowerCase()}`]}>
+	<svg
+		width="12"
+		height="12"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2.5"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		aria-hidden="true"
+	>
+		{status === 'Draft' && <circle cx="12" cy="12" r="8" />}
+		{status === 'Approved' && <path d="M5 12.5l4.5 4.5L19 7.5" />}
+		{status === 'Superseded' && <path d="M5 12h14M13 6l6 6-6 6" />}
+	</svg>
+	{status}
+</span>
+
+<style>
+	.badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3125rem;
+		height: 22px;
+		padding: 0 0.5rem;
+		border: 1px solid;
+		border-radius: 6px;
+		font-size: 0.75rem;
+		font-weight: 500;
+		line-height: 1;
+	}
+
+	.badge-draft {
+		color: var(--hb-draft-text);
+		background-color: var(--hb-draft-bg);
+		border-color: color-mix(in srgb, var(--hb-draft-text) 30%, transparent);
+	}
+
+	.badge-approved {
+		color: var(--hb-approved-text);
+		background-color: var(--hb-approved-bg);
+		border-color: color-mix(in srgb, var(--hb-approved-text) 30%, transparent);
+	}
+
+	.badge-superseded {
+		color: var(--hb-superseded-text);
+		background-color: var(--hb-superseded-bg);
+		border-color: color-mix(in srgb, var(--hb-superseded-text) 30%, transparent);
+	}
+</style>
