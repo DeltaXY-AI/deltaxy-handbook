@@ -4,7 +4,7 @@
 
 Deliver the public, read-first handbook described in [product.md](product.md), built with the stack and publishing rules in [project-guidelines.md](project-guidelines.md) and the design in [styleguide.md](styleguide.md).
 
-All tasks are planned and unchecked. This roadmap does not claim that a site, repository integration, content migration, or deployment exists.
+Phase 1 is delivered: the site is live at https://deltaxy-ai.github.io/deltaxy-handbook/ (see the [Phase 1 release record](releases/phase-1.md)). Phases 2 to 5 are planned and unchecked; this roadmap does not claim they exist.
 
 Out of scope for these phases: application authentication, a database or separate backend, contextual questions, rich-text proposals, and an application-managed approval workflow.
 
@@ -54,10 +54,10 @@ A phase is complete only when all of the following hold. A local build, merged P
 
 These decisions gate implementation. They are not a delivery phase.
 
-- [ ] PRE.01 Accept Astro + Starlight as a documentation-specific exception to the source handbook's Next.js direction, or switch the plan to Next.js + Fumadocs.
-- [ ] PRE.02 Choose the GitHub owner and repository; confirm GitHub Pages availability for that account and repository visibility.
-- [ ] PRE.03 Name the publication reviewer who clears source content for public release.
-- [ ] PRE.04 Accept the style guide's proposed colors, fonts, and text wordmark, or record replacements.
+- [x] PRE.01 Accept Astro + Starlight as a documentation-specific exception to the source handbook's Next.js direction, or switch the plan to Next.js + Fumadocs. *Accepted: Astro + Starlight.*
+- [x] PRE.02 Choose the GitHub owner and repository; confirm GitHub Pages availability for that account and repository visibility. *`DeltaXY-AI/deltaxy-handbook`, public; the Free plan requires a public repository for Pages.*
+- [x] PRE.03 Name the publication reviewer who clears source content for public release. *The handbook owner (DeltaXY technical leadership). Phase 1 content was published on the owner's instruction, for review after publication.*
+- [x] PRE.04 Accept the style guide's proposed colors, fonts, and text wordmark, or record replacements. *Accepted as proposed.*
 
 ## Phase 1 — Live handbook with one real standard
 
@@ -65,42 +65,42 @@ These decisions gate implementation. They are not a delivery phase.
 
 ### Site foundation
 
-- [ ] P1.01 Scaffold Astro + Starlight in this repository; remove all demo content; set the site title, description, and Engineering section.
-- [ ] P1.02 Pin the Node.js and package-manager versions; commit the lockfile; define install, dev, build, and preview commands.
-- [ ] P1.03 Configure Astro `site` and the GitHub Pages repository-path `base`; confirm links and assets resolve under that path.
+- [x] P1.01 Scaffold Astro + Starlight in this repository; remove all demo content; set the site title, description, and Engineering section.
+- [x] P1.02 Pin the Node.js and package-manager versions; commit the lockfile; define install, dev, build, and preview commands.
+- [x] P1.03 Configure Astro `site` and the GitHub Pages repository-path `base`; confirm links and assets resolve under that path.
 
 ### Style guide implementation
 
-- [ ] P1.04 Implement the `--hb-*` color tokens for light and dark themes and map them onto Starlight properties via `customCss`.
-- [ ] P1.05 Self-host the accepted fonts and set `--sl-font` and `--sl-font-mono` with system fallbacks.
-- [ ] P1.06 Style the header (wordmark, section link, search trigger, theme toggle), sidebar, reading column, and “On this page” to the style guide's layout and breakpoints.
-- [ ] P1.07 Extend the docs frontmatter schema with `status`, `version`, `owner`, and `decision`; fail the build when a standard omits `status`.
-- [ ] P1.08 Override `PageTitle` to render breadcrumb, title, lead description, status badge, and metadata row; render the draft notice for draft standards.
-- [ ] P1.09 Style rules tables, callouts, body links, inline code, and code blocks to the style guide.
+- [x] P1.04 Implement the `--hb-*` color tokens for light and dark themes and map them onto Starlight properties via `customCss`.
+- [x] P1.05 Self-host the accepted fonts and set `--sl-font` and `--sl-font-mono` with system fallbacks.
+- [x] P1.06 Style the header (wordmark, section link, search trigger, theme toggle), sidebar, reading column, and “On this page” to the style guide's layout and breakpoints.
+- [x] P1.07 Extend the docs frontmatter schema with `status`, `version`, `owner`, and `decision`; fail the build when a standard omits `status`.
+- [x] P1.08 Override `PageTitle` to render breadcrumb, title, lead description, status badge, and metadata row; render the draft notice for draft standards.
+- [x] P1.09 Style rules tables, callouts, body links, inline code, and code blocks to the style guide.
 
 ### Content
 
-- [ ] P1.10 Publication-review `README.md` and `standards/documentation.md`; identify internal, customer-specific, and out-of-folder references before import.
-- [ ] P1.11 Publish the home page, the public-safe Engineering introduction, and the Documentation standard with its status frontmatter, rule IDs, and anchors intact.
-- [ ] P1.12 Render references to unpublished guidance as “Not yet published” text, not links.
+- [x] P1.10 Publication-review `README.md` and `standards/documentation.md`; identify internal, customer-specific, and out-of-folder references before import.
+- [x] P1.11 Publish the home page, the public-safe Engineering introduction, and the Documentation standard with its status frontmatter, rule IDs, and anchors intact.
+- [x] P1.12 Render references to unpublished guidance as “Not yet published” text, not links.
 
 ### Delivery pipeline
 
-- [ ] P1.13 Add pull-request checks: lockfile install, production build, internal link and anchor check, and an automated accessibility scan of built pages.
-- [ ] P1.14 Prove the link check by running it against a deliberately broken link in an unmerged branch.
-- [ ] P1.15 Add the production workflow deploying the default branch to GitHub Pages with `contents: read`, `pages: write`, and `id-token: write`; select GitHub Actions as the Pages source and restrict deployment to the default branch.
-- [ ] P1.16 Confirm the built output contains no planning documents, environment files, or source business files.
-- [ ] P1.17 Deploy to production and record the release.
-- [ ] P1.18 Rollback drill: ship a harmless reviewed change, revert it through a reviewed commit, and confirm production serves each expected version in turn. Confirm a failing build leaves production unchanged.
+- [x] P1.13 Add pull-request checks: lockfile install, production build, internal link and anchor check, and an automated accessibility scan of built pages.
+- [x] P1.14 Prove the link check by running it against a deliberately broken link in an unmerged branch.
+- [x] P1.15 Add the production workflow deploying the default branch to GitHub Pages with `contents: read`, `pages: write`, and `id-token: write`; select GitHub Actions as the Pages source and restrict deployment to the default branch.
+- [x] P1.16 Confirm the built output contains no planning documents, environment files, or source business files.
+- [x] P1.17 Deploy to production and record the release.
+- [x] P1.18 Rollback drill: ship a harmless reviewed change, revert it through a reviewed commit, and confirm production serves each expected version in turn. Confirm a failing build leaves production unchanged.
 
 ### Phase 1 acceptance
 
-- [ ] A signed-out visitor loads the home page and the Documentation standard over HTTPS, including by direct URL.
-- [ ] Searching a term from the Documentation standard finds and opens it.
-- [ ] The page shows the Draft badge, “Deferred for detailed review”, and the draft notice, matching the source approval register.
-- [ ] Layout, theme toggle, and keyboard focus match the style guide on desktop and a 390px-wide screen.
-- [ ] A copied heading link opens the intended section.
-- [ ] The rollback drill and failing-build check are recorded.
+- [x] A signed-out visitor loads the home page and the Documentation standard over HTTPS, including by direct URL.
+- [x] Searching a term from the Documentation standard finds and opens it.
+- [x] The page shows the Draft badge, “Deferred for detailed review”, and the draft notice, matching the source approval register.
+- [x] Layout, theme toggle, and keyboard focus match the style guide on desktop and a 390px-wide screen.
+- [x] A copied heading link opens the intended section.
+- [x] The rollback drill and failing-build check are recorded.
 
 ## Phase 2 — Approval transparency and citable rules
 

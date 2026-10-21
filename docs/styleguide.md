@@ -6,7 +6,7 @@ Define the reading experience for the public DeltaXY Handbook: calm, precise, an
 
 This guide applies to the Astro + Starlight site described in [project-guidelines.md](project-guidelines.md). [Example screen](examples/standard-page.html) shows the design applied to a standard page.
 
-**Status:** proposed. No DeltaXY brand palette, logo, or typography has been established. Colors, fonts, and the text wordmark below are proposals until accepted by the handbook owner. This applies the source handbook's draft visual standard (VIS-01).
+**Status:** accepted by the handbook owner (roadmap PRE.04, 2026-10-21) and implemented in Phase 1. No DeltaXY brand palette, logo, or typography existed before; the colors, fonts, and text wordmark below are the handbook's own. This applies the source handbook's draft visual standard (VIS-01).
 
 ## Design direction
 
@@ -108,10 +108,10 @@ Starlight inverts its gray scale between dark and light themes. Define the `--hb
 
 ### Header
 
-- Text wordmark: **DeltaXY Handbook** at 15px, weight 600. Do not create a logo until brand assets exist.
-- Section link: **Engineering**. Add other sections only when they have content.
-- Search trigger: bordered field labelled “Search handbook” with a `Ctrl K` / `⌘ K` hint, opening Starlight's search dialog.
-- Theme toggle: icon button with an accessible name.
+- Text wordmark: **DeltaXY Handbook** at 15px, weight 600. Do not create a logo until brand assets exist. The favicon is a neutral "H" on a rounded square that follows the system theme; it is not a logo.
+- Section link: **Engineering**. Add other sections only when they have content. Hidden below 50rem; the wordmark and sidebar cover navigation there.
+- Search trigger: bordered field labelled “Search handbook” with a `Ctrl K` / `⌘ K` hint, opening Starlight's search dialog. Its accessible name includes the hint, so the name contains all visible text (WCAG 2.5.3).
+- Theme toggle: 32px icon button whose accessible name says which theme it switches to. The site follows the system setting until the reader chooses; the choice is stored under Starlight's `starlight-theme` key. Below 50rem it sits in the menu footer.
 
 ### Sidebar
 
@@ -158,7 +158,7 @@ The source standards use `ID | Rule | Verification` tables. Keep them as Markdow
 - Header row: 12px, weight 500, muted, `--hb-bg-subtle` background.
 - Rows: hairline separators, no zebra striping, top-aligned cells.
 - Verification column: muted text.
-- Wrap tables in a bordered, 8px-radius container that scrolls horizontally on narrow screens rather than overflowing the page.
+- Wrap tables in a bordered, 8px-radius container that scrolls horizontally on narrow screens rather than overflowing the page. The container is a labelled, keyboard-focusable region so keyboard users can scroll it; rule tables keep a 40rem minimum width and scroll inside it. Both are added at build time (`src/plugins/tables.mjs`).
 - Make each rule ID linkable (`#doc-05`) through a small build-time Markdown processing step, so readers and agents can cite one rule.
 
 ### Callouts
@@ -168,7 +168,7 @@ Map Starlight asides to restrained bordered panels: `--hb-bg-subtle` background,
 ### Links and references
 
 - Body links: text color, 1px underline in `--hb-border-strong`, 3px offset. Hover changes the underline to the text color.
-- References to unpublished guidance: plain text followed by a `Not yet published` label. Never link to a missing page.
+- References to unpublished guidance: plain text followed by a `Not yet published` label (`<span class="hb-unpublished">`). Never link to a missing page.
 - External links open in the same tab.
 
 ### Code blocks
@@ -192,7 +192,7 @@ Starlight's previous/next links styled as bordered cards with a muted direction 
 
 ## Interaction and accessibility
 
-- Proposed target: WCAG 2.2 AA (UX-05).
+- Target: WCAG 2.2 AA (UX-05). Every pull request runs an axe scan of all built pages in both themes at desktop and 390px widths.
 - Focus: 2px `--hb-accent` outline with 2px offset on every interactive element. Never remove outlines without replacement.
 - Pointer targets at least 24×24px; header controls 32×32px.
 - Keep Starlight's skip link, landmarks, and keyboard search shortcut.
