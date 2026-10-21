@@ -6,7 +6,7 @@ Define the reading experience for the public DeltaXY Handbook: calm, precise, an
 
 This guide applies to the Astro + Starlight site described in [project-guidelines.md](project-guidelines.md). [Example screen](examples/standard-page.html) shows the design applied to a standard page.
 
-**Status:** accepted by the handbook owner (roadmap PRE.04, 2026-10-21) and implemented in Phase 1. No DeltaXY brand palette, logo, or typography existed before; the colors, fonts, and text wordmark below are the handbook's own. This applies the source handbook's draft visual standard (VIS-01).
+**Status:** accepted by the handbook owner (2026-10-21) and implemented. No DeltaXY brand palette, logo, or typography existed before; the colors, fonts, and text wordmark below are the handbook's own. This applies the source handbook's draft visual standard (VIS-01).
 
 ## Design direction
 
@@ -130,7 +130,7 @@ Implemented as a `PageTitle` component override reading the page's data:
 4. Metadata row: status badge, version, owner role, decision summary.
 5. Actions: **Copy page** (exact page Markdown) and **View Markdown**. Both use the published content; never maintain a second copy.
 
-Status, decision, version, and owner start as required frontmatter (roadmap Phase 1). From Phase 2, status and decision come from the structured approval register, so the badge, metadata row, approval record, and Approval status page share one source; version and owner stay in frontmatter. The build fails when a standard has no status. Copy page and View Markdown arrive with the generated Markdown output in Phase 4.
+Status, decision, version, and owner are frontmatter on each page, and the build fails when a standard has no status. Copy page and View Markdown are not implemented yet.
 
 ### Status badges
 
@@ -211,6 +211,6 @@ Starlight's previous/next links styled as bordered cards with a muted direction 
 
 ## Example screen
 
-[`examples/standard-page.html`](examples/standard-page.html) is a static mock-up of the Documentation standard page in light and dark themes, showing the target state after roadmap Phase 4: complete standards catalogue, approval record, and Markdown actions. Templates remain unpublished until Phase 5. It demonstrates layout, tokens, typography, status, rules table, and approval record. It is not the production site: search, copy, and navigation are not wired up, and the excerpted content is still subject to publication review.
+[`examples/standard-page.html`](examples/standard-page.html) is a static mock-up of the Documentation standard page in light and dark themes, including an approval record panel and Markdown actions that the site does not have yet. It demonstrates layout, tokens, typography, status, rules table, and approval record. It is not the production site: search, copy, and navigation are not wired up.
 
 Open it directly in a browser. It loads Geist from Google Fonts for convenience; the production site self-hosts its fonts.
